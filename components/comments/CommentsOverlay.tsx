@@ -21,6 +21,7 @@ export const CommentsOverlay = () => {
    * useThreads: https://liveblocks.io/docs/api-reference/liveblocks-react#useThreads
    */
   const { threads } = useThreads();
+  console.log("🚀 ~ CommentsOverlay ~ threads:", threads)
 
   // get the max z-index of a thread
   const maxZIndex = useMaxZIndex();
