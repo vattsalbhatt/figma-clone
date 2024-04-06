@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { fabric } from "fabric";
 import Dimensions from "./settings/Dimensions";
 import Text from "./settings/Text";
@@ -13,23 +13,26 @@ const RightSidebar = ({
   fabricRef,
   activeObjectRef,
   isEditingRef,
-  syncShapeInStorage
+  syncShapeInStorage,
 }: RightSidebarProps) => {
+  const colorInputRef = useRef(null);
+  const strokeInputRef = useRef(null);
 
-  const handleInputChange = (property: string, value: string) =>{
-    if(!isEditingRef.current) isEditingRef.current = true;
-    setElementAttributes((prev)=> ({
-      ...prev, [property] : value
-    }))
+  const handleInputChange = (property: string, value: string) => {
+    if (!isEditingRef.current) isEditingRef.current = true;
+    setElementAttributes((prev) => ({
+      ...prev,
+      [property]: value,
+    }));
 
     modifyShape({
       canvas: fabricRef.current as fabric.Canvas,
       property,
       value,
       activeObjectRef,
-      syncShapeInStorage
-    })
-  }
+      syncShapeInStorage,
+    });
+  };
   return (
     <section
       className="
@@ -41,7 +44,8 @@ const RightSidebar = ({
         Make changes to canvas as you like
       </span>
       <Dimensions
-        width={elementAttributes.width} height={elementAttributes.height}
+        width={elementAttributes.width}
+        height={elementAttributes.height}
         handleInputChange={handleInputChange}
         isEditingRef={isEditingRef}
       />
@@ -51,8 +55,20 @@ const RightSidebar = ({
         fontSize={elementAttributes.fontSize}
         handleInputChange={handleInputChange}
       />
-      <Color />
-      <Color />
+      <Color
+        inputRef={colorInputRef}
+        attribute={elementAttributes.fill}
+        placeholder="color"
+        attributeType="fill"
+        handleInputChange={handleInputChange}
+      />
+      <Color
+        inputRef={strokeInputRef}
+        attribute={elementAttributes.stroke}
+        placeholder="stroke"
+        attributeType="stroke"
+        handleInputChange={handleInputChange}
+      />
       <Export />
     </section>
   );
