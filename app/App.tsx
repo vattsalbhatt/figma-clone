@@ -130,7 +130,7 @@ export default function Page() {
       });
 
       window.addEventListener("resize", () => {
-        handleResize({ canvas: fabricRef });
+        handleResize({ canvas: fabricRef.current });
       });
     });
 
@@ -182,7 +182,7 @@ export default function Page() {
 
 
     window.addEventListener("resize", () => {
-      handleResize({ fabricRef });
+      handleResize({ canvas: null });
     });
 
     window.addEventListener("keydown", (e) => {
