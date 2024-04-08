@@ -9,7 +9,7 @@ type Props = {
   message?: string;
 };
 
-function Cursor({ color, x, y, message }: Props) {
+function Cursor({ color, x, y, message = '' }: Props) {
   return (
     <div
       className="pointer-events-none absolute left-0 top-0"
